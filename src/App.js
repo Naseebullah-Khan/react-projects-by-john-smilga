@@ -1,19 +1,54 @@
-import React, { useState } from "react";
-import data from "./data";
-import List from "./List";
+import React, { useState, useEffect } from "react";
+import Loading from "./Loading";
+import Tours from "./Tours";
+// ATTENTION!!!!!!!!!!
+// I SWITCHED TO PERMANENT DOMAIN
+const url = "https://course-api.com/react-tours-project";
 function App() {
-  const [persons, setPersons] = useState(data);
+  const [tours, setTours] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
-  const clearPersonsHandler = () => {
-    setPersons([]);
+  const refreshTours = () => {
+    setRefresh(!refresh);
   };
+
+  const getData = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(url);
+      const tours = await response.json();
+      setTours(tours);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  };
+
+  const deleteTour = (id) => {
+    const newTours = tours.filter((tour) => {
+      if (id !== tour.id) {
+        return tour;
+      }
+    });
+    setTours(newTours);
+  };
+
+  useEffect(() => {
+    getData();
+  }, [refresh]);
   return (
     <main>
-      <section className="container">
-        <h3>{persons.length} Birthdays Today</h3>
-        <List people={persons} />
-        <button onClick={clearPersonsHandler}>Clear All</button>
-      </section>
+      {loading ? (
+        <Loading />
+      ) : (
+        <Tours
+          refreshTours={refreshTours}
+          deleteTour={deleteTour}
+          items={tours}
+        />
+      )}
     </main>
   );
 }
