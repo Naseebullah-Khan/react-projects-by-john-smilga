@@ -2,23 +2,58 @@ import React, { useState, useEffect } from "react";
 import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import { FaQuoteRight } from "react-icons/fa";
 import data from "./data";
-function App() {
+function Alternative() {
   const persons = useState(data)[0];
   const [index, setIndex] = useState(0);
 
-  useEffect(() => {
-    if (index < 0) {
-      return setIndex(persons.length - 1);
-    } else if (index > persons.length - 1) {
-      return setIndex(0);
-    }
-  }, [index, persons]);
+  const prevPerson = () => {
+    setIndex((oldIndex) => {
+      let index = oldIndex - 1;
+      if (index < 0) {
+        index = persons.length - 1;
+      }
+      return index;
+    });
+  };
+  const nextPerson = () => {
+    setIndex((oldIndex) => {
+      let index = oldIndex + 1;
+      if (index > persons.length - 1) {
+        index = 0;
+      }
+      return index;
+    });
+  };
+
+  // This is my Way
+  // const prevPerson = () => {
+  //   setIndex((oldIndex) => {
+  //     if (oldIndex === 0) {
+  //       return persons.length - 1;
+  //     }
+  //   });
+  // };
+  // const nextPerson = () => {
+  //   setIndex((oldIndex) => {
+  //     if (oldIndex === persons.length - 1) {
+  //       return 0;
+  //     }
+  //   });
+  // };
 
   useEffect(() => {
     const autoSlide = setInterval(() => {
-      setIndex(index + 1);
-    }, 2000);
-    return () => clearInterval(autoSlide);
+      setIndex((oldIndex) => {
+        let index = oldIndex + 1;
+        if (index > persons.length - 1) {
+          index = 0;
+        }
+        return index;
+      });
+    }, 5000);
+    return () => {
+      clearInterval(autoSlide);
+    };
   }, [index]);
 
   return (
@@ -51,11 +86,11 @@ function App() {
             </article>
           );
         })}
-        <FiChevronLeft className="prev" onClick={() => setIndex(index - 1)} />
-        <FiChevronRight className="next" onClick={() => setIndex(index + 1)} />
+        <FiChevronLeft className="prev" onClick={prevPerson} />
+        <FiChevronRight className="next" onClick={nextPerson} />
       </div>
     </section>
   );
 }
 
-export default App;
+export default Alternative;
