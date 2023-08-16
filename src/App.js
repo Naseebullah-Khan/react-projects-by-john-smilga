@@ -1,55 +1,58 @@
 import React, { useState } from "react";
-import data from "./data";
+import SingleColor from "./SingleColor";
+
+import Values from "values.js";
+
 function App() {
-  const [text, setText] = useState([]);
-  const [number, setNumber] = useState(0);
+  const [tintsShades, setTintsShades] = useState(10);
+  const [color, setColor] = useState("");
+  const [list, setList] = useState(new Values("#f15025").all(tintsShades));
+  const [error, setError] = useState(false);
 
-  const handleSubmit = (event) => {
+  const submitHandler = (event) => {
     event.preventDefault();
-    let num = parseInt(number);
-    //   // My Approach
-    //   let paragraphs = [];
-    //   if (num <= 1 || !num) {
-    //     setText([data[0]]);
-    //   } else {
-    //     for (let index = 0; index < num; index++) {
-    //       paragraphs.push(data[index]);
-    //     }
-    //     setText(paragraphs);
-    //   }
-
-    // Teacher's Approach
-    if (number <= 0) {
-      num = 1;
-    } else if (number >= data.length) {
-      num = data.length;
+    try {
+      let colors = new Values(color).all(tintsShades);
+      setList(colors);
+      setError(false);
+    } catch (error) {
+      setError(true);
+      console.log(error);
     }
-    console.log(data.length);
-    setText(data.slice(0, num));
   };
 
   return (
-    <section className="section-center">
-      <h3>tired of boring lorem ipsum?</h3>
-      <form className="lorem-form" onSubmit={handleSubmit}>
-        <label htmlFor="paragraphs">Paragraphs:</label>
-        <input
-          type="number"
-          onChange={(event) => setNumber(event.target.value)}
-          value={number}
-          name="paragraphs"
-          id="paragraphs"
-        />
-        <button type="submit" className="btn">
-          generate
-        </button>
-      </form>
-      <article className="lorem-text">
-        {text.map((text, index) => {
-          return <p key={index}>{text}</p>;
+    <>
+      <section className="container">
+        <h3>color generator</h3>
+        <form onSubmit={submitHandler}>
+          <input
+            className={`${error ? "error" : null}`}
+            type="text"
+            onChange={(event) => setColor(event.target.value)}
+            value={color}
+            placeholder="#f15025"
+          />
+          <input
+            style={{ marginLeft: "0.4rem" }}
+            min={1}
+            max={100}
+            type="number"
+            value={tintsShades}
+            placeholder="e.g. 10"
+            onChange={(event) => setTintsShades(parseInt(event.target.value))}
+          />
+          <button className="btn" type="submit">
+            Submit
+          </button>
+        </form>
+      </section>
+      <section className="colors">
+        {list.map((color, index) => {
+          return <SingleColor key={index} color={color} />;
         })}
-      </article>
-    </section>
+      </section>
+    </>
   );
 }
 
