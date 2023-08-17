@@ -3,26 +3,58 @@ import List from "./List";
 import Alert from "./Alert";
 
 function App() {
+  const [alertType, setAlertType] = useState("");
+  const [errorInfo, setErrorInfo] = useState("");
+  const [btnName, setBtnName] = useState("submit");
   const [grocery, setGrocery] = useState("");
-  const [list, setList] = useState([
-    { id: 1, name: "egg" },
-    { id: 2, name: "milk" },
-  ]);
+  const [list, setList] = useState([]);
+
+  const deleteItemHandler = (id) => {
+    const newList = list.filter((item) => {
+      if (item.id !== parseInt(id)) {
+        return item;
+      }
+    });
+    setList(newList);
+    setErrorInfo("Item Removed");
+    setAlertType("");
+  };
+
+  const editItemHandler = (id) => {
+    const edit = list.find((item) => {
+      if (item.id === parseInt(id)) {
+        return item;
+      }
+    });
+    setGrocery(edit.name);
+    setBtnName("edit");
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const newGrocery = {
-      id: list.length + 1,
-      name: grocery,
-    };
-    setList((list) => [...list, newGrocery]);
-    setGrocery("");
+    if (event.target.innerHTML === "edit") {
+      console.log("edit");
+      setErrorInfo("Value Changed");
+      setAlertType("success");
+    } else if (!grocery) {
+      setErrorInfo("Please Enter Value");
+    } else {
+      const newGrocery = {
+        id: list.length + 1,
+        name: grocery,
+      };
+      setList((list) => [...list, newGrocery]);
+      setGrocery("");
+      setErrorInfo("Item Added To The List");
+      setAlertType("success");
+    }
   };
 
   return (
     <>
       <div className="section-center">
-        <form onSubmit={handleSubmit} className="grocery-form">
+        {errorInfo && <Alert info={errorInfo} alertType={alertType} />}
+        <form className="grocery-form">
           <h3>grocery bud</h3>
           <div className="form-control">
             <input
@@ -32,16 +64,24 @@ function App() {
               placeholder="e.g. eggs"
               onChange={(event) => setGrocery(event.target.value)}
             />
-            <button className="submit-btn" type="submit">
-              submit
+            <button onClick={handleSubmit} className="submit-btn" type="submit">
+              {btnName}
             </button>
           </div>
         </form>
         {list.length !== 0 && (
           <div className="grocery-container">
-            <List list={list} />
+            <List
+              deleteItem={deleteItemHandler}
+              editItem={editItemHandler}
+              list={list}
+            />
             <button
-              onClick={() => setList([])}
+              onClick={() => {
+                setList([]);
+                setErrorInfo("Empty List");
+                setAlertType("");
+              }}
               type="button"
               className="clear-btn"
             >
