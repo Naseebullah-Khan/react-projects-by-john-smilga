@@ -1,15 +1,7 @@
 import React, { useEffect } from "react";
 
-const Alert = ({ info, alertType }) => {
-  return (
-    <section
-      className={`alert alert-${
-        alertType === "success" ? "success" : "danger"
-      }`}
-    >
-      {info}
-    </section>
-  );
+const Alert = ({ alert }) => {
+  return <section className={`alert alert-${alert.type}`}>{alert.msg}</section>;
 };
 
 export default Alert;
