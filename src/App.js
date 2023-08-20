@@ -18,7 +18,7 @@ function App() {
 
   const deleteItemHandler = (id) => {
     const newList = list.filter((item) => {
-      if (item.id !== parseInt(id)) {
+      if (item.id !== id) {
         return item;
       }
     });
@@ -28,7 +28,7 @@ function App() {
 
   const editItemHandler = (id) => {
     const edit = list.find((item) => {
-      if (item.id === parseInt(id)) {
+      if (item.id === id) {
         return item;
       }
     });
@@ -40,21 +40,25 @@ function App() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (isEditing) {
-      const items = list.map((item) => {
-        if (item.id === parseInt(editGrocery)) {
-          item.name = grocery;
-        }
-        return item;
-      });
-      setList(items);
-      setGrocery("");
-      setIsEditing(false);
-      setAlert({ show: true, msg: "Value Changed", type: "success" });
+      if (!grocery) {
+        setAlert({ show: true, msg: "Please Enter Value", type: "danger" });
+      } else {
+        const items = list.map((item) => {
+          if (item.id === editGrocery) {
+            item.name = grocery;
+          }
+          return item;
+        });
+        setList(items);
+        setGrocery("");
+        setIsEditing(false);
+        setAlert({ show: true, msg: "Value Changed", type: "success" });
+      }
     } else if (!grocery) {
       setAlert({ show: true, msg: "Please Enter Value", type: "danger" });
     } else {
       const newGrocery = {
-        id: list.length + 1,
+        id: new Date().getTime().toString(),
         name: grocery,
       };
       setList((list) => [...list, newGrocery]);
@@ -65,7 +69,7 @@ function App() {
 
   return (
     <section className="section-center">
-      <form className="grocery-form">
+      <form className="grocery-form" onSubmit={handleSubmit}>
         {alert["show"] && <Alert alert={alert} />}
         <h3>grocery bud</h3>
         <div className="form-control">
@@ -76,7 +80,7 @@ function App() {
             placeholder="e.g. eggs"
             onChange={(event) => setGrocery(event.target.value)}
           />
-          <button onClick={handleSubmit} className="submit-btn" type="submit">
+          <button className="submit-btn" type="submit">
             {isEditing ? "edit" : "submit"}
           </button>
         </div>
