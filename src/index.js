@@ -1,11 +1,11 @@
-import ReactDOM from "react-dom/client";
-// import App from "./tutorial/App";
-import BookList from "./BookList";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
 
-// CSS
-import "./index.css";
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
-
-// root.render(<App />);
-root.render(<BookList />);
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
