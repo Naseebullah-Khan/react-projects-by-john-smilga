@@ -4,31 +4,22 @@ import { links, social } from "./data";
 import logo from "./logo.svg";
 
 const Navbar = () => {
-  const [height, setHeight] = useState(0);
-  const [isToggle, setIsToggle] = useState(true);
+  const [show, setShow] = useState(false);
 
   return (
     <nav>
       <div className="nav-center">
         <div className="nav-header">
-          <img className="logo" src={logo} alt="" />
+          <img className="logo" src={logo} alt="logo" />
           <button
-            onClick={() => {
-              setIsToggle(!isToggle);
-              if (isToggle) {
-                setHeight(200);
-              } else {
-                setHeight(0);
-              }
-            }}
+            onClick={() => setShow(!show)}
             type="button"
             className="nav-toggle"
           >
             <FaBars />
           </button>
         </div>
-
-        <div className="links-container" style={{ height }}>
+        <div className={`links-container ${show && "show-container"}`}>
           <ul className="links">
             {links.map((link) => {
               const { id, url, text } = link;
