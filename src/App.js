@@ -26,14 +26,16 @@ import React from "react";
 // import Final from "./tutorial/4-forms/final/1-controlled-inputs";
 // import Setup from "./tutorial/4-forms/setup/2-multiple-inputs";
 // import Final from "./tutorial/4-forms/final/2-multiple-inputs";
-import Setup from "./tutorial/5-useRef/setup/1-useRef-basics";
-import Final from "./tutorial/5-useRef/final/1-useRef-basics";
+// import Setup from "./tutorial/5-useRef/setup/1-useRef-basics";
+// import Final from "./tutorial/5-useRef/final/1-useRef-basics";
+import Setup from "./tutorial/6-useReducer/setup/";
+import Final from "./tutorial/6-useReducer/final";
 
 function App() {
   return (
     <div className="container">
       <Setup />
-      {/* <Final /> */}
+      <Final />
     </div>
   );
 }
