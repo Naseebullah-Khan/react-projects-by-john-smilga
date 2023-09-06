@@ -1,8 +1,10 @@
 import React from "react";
 import logo from "./images/logo.svg";
 import { FaBars } from "react-icons/fa";
+import { useGlobalContext } from "./context";
 
 const Navbar = () => {
+  const { links } = useGlobalContext();
   return (
     <nav className="nav">
       <div className="nav-center">
@@ -13,21 +15,16 @@ const Navbar = () => {
           </button>
         </div>
         <ul className="nav-links">
-          <li>
-            <button type="button" className="link-btn">
-              Products
-            </button>
-          </li>
-          <li>
-            <button type="button" className="link-btn">
-              Developers
-            </button>
-          </li>
-          <li>
-            <button type="button" className="link-btn">
-              Company
-            </button>
-          </li>
+          {links.map((link, index) => {
+            const { page, links } = link;
+            return (
+              <li key={index}>
+                <button className="link-btn" type="button">
+                  {page}
+                </button>
+              </li>
+            );
+          })}
         </ul>
         <button type="button" className="btn signin-btn">
           Sign in
