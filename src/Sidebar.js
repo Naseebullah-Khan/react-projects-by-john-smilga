@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { FaTimes } from "react-icons/fa";
 import sublinks from "./data";
 import { useGlobalContext } from "./context";
@@ -6,8 +6,8 @@ import { useGlobalContext } from "./context";
 const Sidebar = () => {
   const { showSidebar, closeSidebar } = useGlobalContext();
   return (
-    <div className={`sidebar-wrapper ${showSidebar && "show"}`}>
-      <aside className="sidebar">
+    <aside className={`sidebar-wrapper ${showSidebar && "show"}`}>
+      <div className="sidebar">
         <button onClick={closeSidebar} className="close-btn" type="button">
           <FaTimes />
         </button>
@@ -32,8 +32,8 @@ const Sidebar = () => {
             );
           })}
         </div>
-      </aside>
-    </div>
+      </div>
+    </aside>
   );
 };
 

@@ -5,7 +5,8 @@ const Context = createContext();
 
 const ContextProvider = ({ children }) => {
   const [showSidebar, setShowSidebar] = useState(false);
-  const [showSubmenu, setShowSubmenu] = useState(true);
+  const [showSubmenu, setShowSubmenu] = useState(false);
+  const [menuIndex, setMenuIndex] = useState(null);
 
   const openSidebar = () => {
     setShowSidebar(true);
@@ -15,7 +16,8 @@ const ContextProvider = ({ children }) => {
     setShowSidebar(false);
   };
 
-  const openSubmenu = () => {
+  const openSubmenu = (index) => {
+    setMenuIndex(index);
     setShowSubmenu(true);
   };
 
@@ -27,6 +29,7 @@ const ContextProvider = ({ children }) => {
     <Context.Provider
       value={{
         sublinks,
+        menuIndex,
         showSidebar,
         openSidebar,
         closeSidebar,
