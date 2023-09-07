@@ -4,12 +4,18 @@ import { FaBars } from "react-icons/fa";
 import { useGlobalContext } from "./context";
 
 const Navbar = () => {
-  const { sublinks, openSidebar, openSubmenu } = useGlobalContext();
+  const { sublinks, openSidebar, openSubmenu, closeSubmenu } =
+    useGlobalContext();
+
+  const handleSubmenu = (event) => {
+    if (!event.target.classList.contains("link-btn")) closeSubmenu();
+  };
+
   return (
-    <nav className="nav">
+    <nav className="nav" onMouseOver={handleSubmenu}>
       <div className="nav-center">
         <div className="nav-header">
-          <img src={logo} alt="Stripe" />
+          <img className="nav-logo" src={logo} alt="Stripe" />
           <button
             onClick={openSidebar}
             type="button"
@@ -24,7 +30,12 @@ const Navbar = () => {
             return (
               <li key={index}>
                 <button
-                  onMouseOver={() => openSubmenu(index)}
+                  onMouseOver={(event) => {
+                    const button = event.target.getBoundingClientRect();
+                    const center = (button.left + button.right) / 2;
+                    const bottom = button.bottom - 3;
+                    openSubmenu(index, { center, bottom });
+                  }}
                   className="link-btn"
                   type="button"
                 >
