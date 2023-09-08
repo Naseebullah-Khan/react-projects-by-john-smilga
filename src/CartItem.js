@@ -11,7 +11,7 @@ const CartItem = ({ id, img, title, price, amount }) => {
         {/* remove button */}
         <button
           className="remove-btn"
-          onClick={() => dispatch({ type: "REMOVE ITEM" })}
+          onClick={() => dispatch({ type: "REMOVE ITEM", payload: id })}
         >
           remove
         </button>

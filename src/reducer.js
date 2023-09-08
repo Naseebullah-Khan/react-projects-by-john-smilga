@@ -8,6 +8,11 @@ const reducer = (state, action) => {
   }
   if (action.type === "REMOVE ITEM") {
     console.log("remove item");
+    const newCart = state.cart.filter((item) => item.id !== action.payload);
+    return {
+      ...state,
+      cart: newCart,
+    };
   }
   if (action.type === "INCREASE ITEM") {
     console.log("increase item");
