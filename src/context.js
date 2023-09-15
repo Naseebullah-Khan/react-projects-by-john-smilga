@@ -15,6 +15,10 @@ const initialState = {
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  useEffect(() => {
+    dispatch({ type: "GET TOTALS" });
+  }, [state.cart]);
+
   return (
     <AppContext.Provider
       value={{
