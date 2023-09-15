@@ -42,6 +42,22 @@ const reducer = (state, action) => {
     });
     return { ...state, cart: newCart.filter((item) => item.amount > 0) };
   }
-  return new Error("Action is not found");
+  if (action.type === "TOGGLE AMOUNT") {
+    const newCart = state.cart
+      .map((item) => {
+        if (item.id === action.payload.id) {
+          if (action.payload.type === "inc") {
+            return { ...item, amount: item.amount + 1 };
+          }
+          if (action.payload.type === "dec") {
+            return { ...item, amount: item.amount - 1 };
+          }
+        }
+        return item;
+      })
+      .filter((item) => item.amount > 0);
+    return { ...state, cart: newCart };
+  }
+  throw new Error("Action is not found");
 };
 export default reducer;
