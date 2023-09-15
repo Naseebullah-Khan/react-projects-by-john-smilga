@@ -1,4 +1,10 @@
 const reducer = (state, action) => {
+  if (action.type === "LOADING") {
+    return { ...state, loading: true };
+  }
+  if (action.type === "GET DATA") {
+    return { ...state, loading: false, cart: action.payload };
+  }
   if (action.type === "GET TOTALS") {
     let { total, amount } = state.cart.reduce(
       (total, item) => {

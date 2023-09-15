@@ -15,6 +15,17 @@ const initialState = {
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const getData = async () => {
+    dispatch({ type: "LOADING" });
+    const response = await fetch(url);
+    const data = await response.json();
+    dispatch({ type: "GET DATA", payload: data });
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   useEffect(() => {
     dispatch({ type: "GET TOTALS" });
   }, [state.cart]);
