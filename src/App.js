@@ -32,8 +32,10 @@ import React from "react";
 // import Final from "./tutorial/6-useReducer/final";
 // import Setup from "./tutorial/7-prop-drilling/setup/1-prop-drilling";
 // import Final from "./tutorial/7-prop-drilling/final/1-prop-drilling";
-import Setup from "./tutorial/8-useContext/setup/1-context-api";
+// import Setup from "./tutorial/8-useContext/setup/1-context-api";
 // import Final from "./tutorial/8-useContext/final/1-context-api";
+import Setup from "./tutorial/9-custom-hooks/setup/1-fetch-example";
+// import Final from "./tutorial/9-custom-hooks/final/1-fetch-example";
 function App() {
   return (
     <div className="container">
