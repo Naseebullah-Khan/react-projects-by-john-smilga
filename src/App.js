@@ -34,11 +34,11 @@ import React from "react";
 // import Final from "./tutorial/7-prop-drilling/final/1-prop-drilling";
 // import Setup from "./tutorial/8-useContext/setup/1-context-api";
 // import Final from "./tutorial/8-useContext/final/1-context-api";
-// import Setup from "./tutorial/9-custom-hooks/setup/1-fetch-example";
+import Setup from "./tutorial/9-custom-hooks/setup/1-fetch-example";
 // import Final from "./tutorial/9-custom-hooks/final/1-fetch-example";
 // import Setup from "./tutorial/10-prop-types/setup";
 // import Final from "./tutorial/10-prop-types/final";
-import Setup from "./tutorial/12-memo-useMemo-useCallback/setup";
+// import Setup from "./tutorial/12-memo-useMemo-useCallback/setup";
 // import Final from "./tutorial/12-memo-useMemo-useCallback/final";
 function App() {
   return (
