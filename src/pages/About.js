@@ -4,9 +4,7 @@ const About = () => {
   return (
     <section className="section">
       <h2>About</h2>
-      <Link to="/" className="btn">
-        Back to Home
-      </Link>
+      <Link to="/">Back to Home</Link>
     </section>
   );
 };
