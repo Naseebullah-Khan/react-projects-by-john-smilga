@@ -31,6 +31,15 @@ const StyledNavbar = () => {
       >
         Products
       </NavLink>
+      <NavLink
+        // style={({ isActive }) => {
+        //   return { color: isActive ? "blueviolet" : "grey" };
+        // }}
+        className={({ isActive }) => (isActive ? "link active" : "link")}
+        to="/login"
+      >
+        Login
+      </NavLink>
     </nav>
   );
 };
