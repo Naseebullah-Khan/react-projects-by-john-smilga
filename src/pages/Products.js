@@ -13,7 +13,7 @@ const Products = () => {
             return (
               <article key={id}>
                 <h5>{name}</h5>
-                <Link to={`/products/${id}`}>more info</Link>
+                <Link to={`${id}`}>more info</Link>
               </article>
             );
           })}
