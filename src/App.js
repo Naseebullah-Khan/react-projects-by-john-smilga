@@ -47,7 +47,13 @@ function App() {
   }, []);
 
   const valueHandler = (e) => {
-    console.log(e.target);
+    if (e.target.classList.contains("icon")) {
+      // const newTitle = e.target.dataset.label;
+      const newTitle = e.target.getAttribute("data-label");
+      const newValue = person[newTitle];
+      setTitle(newTitle);
+      setValue(newValue);
+    }
   };
 
   return (
