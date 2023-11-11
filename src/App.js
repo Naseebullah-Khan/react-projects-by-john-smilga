@@ -14,7 +14,37 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [person, setPerson] = useState(null);
   const [title, setTitle] = useState("name");
-  const [value, setValue] = useState("value");
+  const [value, setValue] = useState("Douglas Snyder");
+
+  const fetchUser = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(url);
+      const user = await response.json();
+      const { results } = user;
+      const { name, email, dob, location, phone, login, picture } = results[0];
+      const newUser = {
+        name: `${name.first} ${name.last}`,
+        email,
+        age: dob.age,
+        street: `${location.street.number} ${location.street.name}`,
+        phone,
+        password: login.password,
+        image: picture.large,
+      };
+      setTitle("name");
+      setValue(newUser.name);
+      setPerson(newUser);
+      setLoading(false);
+    } catch (error) {
+      console.log(error.response);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
 
   const valueHandler = (e) => {
     console.log(e.target);
@@ -61,7 +91,7 @@ function App() {
               <FaMap />
             </button>
             <button
-              data-label="phone number"
+              data-label="phone"
               onMouseOver={valueHandler}
               className="icon"
             >
@@ -75,7 +105,7 @@ function App() {
               <FaLock />
             </button>
           </div>
-          <button className="btn" type="button">
+          <button className="btn" type="button" onClick={fetchUser}>
             {loading ? "loading..." : "random user"}
           </button>
         </div>
