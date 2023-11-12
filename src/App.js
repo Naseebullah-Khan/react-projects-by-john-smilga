@@ -12,6 +12,10 @@ function App() {
     setFollowers(data[page]);
   }, [data, loading, page]);
 
+  const pageHandler = (index) => {
+    setPage(index);
+  };
+
   return (
     <main className="section-title">
       <h1>{loading ? "loading..." : "Pagination"}</h1>
@@ -23,6 +27,22 @@ function App() {
             return <Follower key={id} data={{ name, image, url }} />;
           })}
         </div>
+        {loading || (
+          <div className="btn-container">
+            {data.map((_, index) => {
+              return (
+                <button
+                  key={index}
+                  className={`page-btn ${index === page && "active-btn"}`}
+                  type="button"
+                  onClick={() => pageHandler(index)}
+                >
+                  {index + 1}
+                </button>
+              );
+            })}
+          </div>
+        )}
       </section>
     </main>
   );
