@@ -1,77 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useFetch } from "./useFetch";
-import Follower from "./Follower";
+import React, { useState, useEffect } from 'react'
+import { FaSearch } from 'react-icons/fa'
+import Photo from './Photo'
+// const clientID = `?client_id=${process.env.REACT_APP_ACCESS_KEY}`
+const mainUrl = `https://api.unsplash.com/photos/`
+const searchUrl = `https://api.unsplash.com/search/photos/`
+
 function App() {
-  const { loading, data } = useFetch();
-  const [page, setPage] = useState(0);
-  const [followers, setFollowers] = useState([]);
-
-  useEffect(() => {
-    // !loading && setFollowers(data[page]);
-    if (loading) return;
-    setFollowers(data[page]);
-  }, [data, loading, page]);
-
-  const pageHandler = (index) => {
-    setPage(index);
-  };
-
-  const prevPage = () => {
-    setPage((oldPage) => {
-      let prevPage = oldPage - 1;
-      if (prevPage < 0) {
-        prevPage = data.length - 1;
-      }
-      return prevPage;
-    });
-  };
-
-  const nextPage = () => {
-    setPage((oldPage) => {
-      let nextPage = oldPage + 1;
-      if (nextPage > data.length - 1) {
-        nextPage = 0;
-      }
-      return nextPage;
-    });
-  };
-
-  return (
-    <main className="section-title">
-      <h1>{loading ? "loading..." : "Pagination"}</h1>
-      <div className="underline"></div>
-      <section className="followers">
-        <div className="container">
-          {followers.map((item) => {
-            const { id, login: name, avatar_url: image, html_url: url } = item;
-            return <Follower key={id} data={{ name, image, url }} />;
-          })}
-        </div>
-        {loading || (
-          <div className="btn-container">
-            <button className="prev-btn" type="button" onClick={prevPage}>
-              prev
-            </button>
-            {data.map((_, index) => {
-              return (
-                <button
-                  key={index}
-                  className={`page-btn ${index === page && "active-btn"}`}
-                  type="button"
-                  onClick={() => pageHandler(index)}
-                >
-                  {index + 1}
-                </button>
-              );
-            })}
-            <button className="next-btn" type="button" onClick={nextPage}>
-              next
-            </button>
-          </div>
-        )}
-      </section>
-    </main>
-  );
+  return <h2>stock photos starter</h2>
 }
 
-export default App;
+export default App
