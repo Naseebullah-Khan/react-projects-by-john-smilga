@@ -8,7 +8,7 @@ const searchUrl = `https://api.unsplash.com/search/photos/`;
 
 function App() {
   const [loading, setLoading] = useState(false);
-  const [images, setImges] = useState([]);
+  const [images, setImages] = useState([]);
 
   const fetchImages = async () => {
     setLoading(true);
@@ -16,9 +16,10 @@ function App() {
     url = `${mainUrl}${clientID}`;
     try {
       const response = await fetch(url);
-      const images = await response.json();
+      const data = await response.json();
       setLoading(false);
-      console.log(images);
+      setImages(data);
+      console.log(data);
     } catch (error) {
       setLoading(false);
       console.log(error.response);
@@ -29,7 +30,54 @@ function App() {
     fetchImages();
   }, []);
 
-  return <h2>stock photos starter</h2>;
+  const submitHandler = (e) => {
+    e.preventDefault();
+    console.log("Hello, World!");
+  };
+
+  return (
+    <main>
+      <section className="search">
+        <form onSubmit={submitHandler} className="search-form">
+          <input type="text" className="form-input" placeholder="search" />
+          <button className="submit-btn" type="submit">
+            <FaSearch />
+          </button>
+        </form>
+      </section>
+      <section className="photos">
+        <div className="photos-center">
+          {images.map((image) => {
+            const {
+              id,
+              urls: { regular },
+              likes,
+              alt_description: description,
+              user: {
+                name,
+                portfolio_url,
+                profile_image: { medium },
+              },
+            } = image;
+            return (
+              <Photo
+                key={id}
+                {...{
+                  regular,
+                  likes,
+                  description,
+                  name,
+                  portfolio_url,
+                  medium,
+                }}
+              />
+            );
+          })}
+        </div>
+        {loading && <h2 className="loading">Loading...</h2>}
+      </section>
+    </main>
+  );
 }
 
 export default App;
