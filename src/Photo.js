@@ -8,7 +8,6 @@ const Photo = ({
   medium: profile,
   portfolio_url,
 }) => {
-  console.log(portfolio_url);
   return (
     <article className="photo">
       <img src={image} alt={description} />
