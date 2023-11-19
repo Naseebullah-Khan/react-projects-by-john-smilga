@@ -2,11 +2,20 @@ import React, { useState, useEffect } from "react";
 import data from "./data";
 import Article from "./Article";
 
+const getLocalStorageData = () => {
+  let theme = "light-mode";
+  if (localStorage.getItem("theme")) {
+    theme = localStorage.getItem("theme");
+  }
+  return theme;
+};
+
 function App() {
-  const [theme, setTheme] = useState("light-mode");
+  const [theme, setTheme] = useState(getLocalStorageData());
 
   useEffect(() => {
     document.documentElement.className = theme;
+    localStorage.setItem("theme", theme);
   }, [theme]);
 
   const themeHandler = () => {
