@@ -40,7 +40,9 @@ const AppProvider = ({ children }) => {
   }, []);
 
   return (
-    <AppContext.Provider value={{ ...state }}>{children}</AppContext.Provider>
+    <AppContext.Provider value={{ ...state, dispatch, REMOVE_STORY }}>
+      {children}
+    </AppContext.Provider>
   );
 };
 // make sure use

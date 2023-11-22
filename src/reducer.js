@@ -13,6 +13,11 @@ const reducer = (state, action) => {
     case SET_STORIES:
       const { hits, nbPages } = action.payload;
       return { ...state, stories: hits, nbPages, loading: false };
+    case REMOVE_STORY:
+      const newStories = state.stories.filter(
+        (story) => story.story_id !== action.payload
+      );
+      return { ...state, stories: newStories };
     default:
       throw new Error(`no matching ${action.type} action type`);
   }

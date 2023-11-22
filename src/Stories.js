@@ -3,7 +3,7 @@ import React from "react";
 import { useGlobalContext } from "./context";
 
 const Stories = () => {
-  const { loading, stories } = useGlobalContext();
+  const { loading, stories, dispatch, REMOVE_STORY } = useGlobalContext();
 
   if (loading) return <section className="loading"></section>;
 
@@ -26,7 +26,13 @@ const Stories = () => {
             >
               read more
             </a>
-            <button type="button" className="remove-btn">
+            <button
+              type="button"
+              className="remove-btn"
+              onClick={() =>
+                dispatch({ type: REMOVE_STORY, payload: story_id })
+              }
+            >
               remove
             </button>
           </article>
