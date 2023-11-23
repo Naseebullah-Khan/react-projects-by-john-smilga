@@ -10,9 +10,9 @@ const Stories = () => {
   return (
     <section className="stories">
       {stories.map((story) => {
-        const { story_id, title, num_comments, points, author, url } = story;
+        const { objectID, title, num_comments, points, author, url } = story;
         return (
-          <article key={story_id} className="story">
+          <article key={objectID} className="story">
             <h4 className="title">{title}</h4>
             <p className="info">
               {points} points by <span>{author} | </span>
@@ -30,7 +30,7 @@ const Stories = () => {
               type="button"
               className="remove-btn"
               onClick={() =>
-                dispatch({ type: REMOVE_STORY, payload: story_id })
+                dispatch({ type: REMOVE_STORY, payload: objectID })
               }
             >
               remove

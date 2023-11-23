@@ -15,7 +15,7 @@ const reducer = (state, action) => {
       return { ...state, stories: hits, nbPages, loading: false };
     case REMOVE_STORY:
       const newStories = state.stories.filter(
-        (story) => story.story_id !== action.payload
+        (story) => story.objectID !== action.payload
       );
       return { ...state, stories: newStories };
     case HANDLE_SEARCH:
