@@ -79,12 +79,22 @@ const AppProvider = ({ children }) => {
   };
 
   const changeHandler = (event) => {
-    console.log(event);
+    const name = event.target.name;
+    const value = event.target.value;
+    // My Approach
+    // if (name === "amount") {
+    //   setQuiz({ ...quiz, amount: value });
+    // } else if (name === "category") {
+    //   setQuiz({ ...quiz, category: value });
+    // } else if (name === "difficulty") {
+    //   setQuiz({ ...quiz, difficulty: value });
+    // }
+    setQuiz({ ...quiz, [name]: value });
   };
 
   const submitHandler = (event) => {
     event.preventDefault();
-    console.log(event);
+    console.log(quiz);
   };
 
   return (
