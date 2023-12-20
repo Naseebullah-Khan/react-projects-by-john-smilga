@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { GithubContext } from "../context/context";
-import { ExampleChart, Pie3D, Column3D, Bar3D, Doughnut2D } from "./Charts";
+import { Pie3D, Column3D, Bar3D, Doughnut2D } from "./Charts";
 const Repos = () => {
   const { githubRepos } = React.useContext(GithubContext);
 
@@ -33,28 +33,45 @@ const Repos = () => {
     })
     .slice(0, 5);
 
-  // const chartData = [
-  //   {
-  //     label: "HTML",
-  //     value: "39",
+  //  My Approach
+  // const repos = githubRepos.reduce(
+  //   (acc, curr) => {
+  //     const { name, stargazers_count, forks } = curr;
+  //     acc.mostPopular = [
+  //       ...acc.mostPopular,
+  //       { label: name, value: stargazers_count },
+  //     ];
+  //     acc.mostForked = [...acc.mostForked, { label: name, value: forks }];
+  //     return acc;
   //   },
-  //   {
-  //     label: "CSS",
-  //     value: "49",
-  //   },
-  //   {
-  //     label: "JavaScript",
-  //     value: "60",
-  //   },
-  // ];
+  //   { mostPopular: [], mostForked: [] }
+  // );
+
+  // Teacher Approach
+  let { stars, forks } = githubRepos.reduce(
+    (acc, curr) => {
+      const { name, stargazers_count, forks } = curr;
+      acc.stars[stargazers_count] = { label: name, value: stargazers_count };
+      acc.forks[forks] = { label: name, value: forks };
+      return acc;
+    },
+    {
+      stars: {},
+      forks: {},
+    }
+  );
+
+  stars = Object.values(stars).slice(-5).reverse();
+  forks = Object.values(forks).slice(-5).reverse();
 
   return (
     <section className="section">
       <Wrapper className="section-center">
         {/* <ExampleChart data={chartData} /> */}
         <Pie3D data={mostUsed} />
-        <div></div>
+        <Column3D data={stars} />
         <Doughnut2D data={mostPopular} />
+        <Bar3D data={forks} />
       </Wrapper>
     </section>
   );
