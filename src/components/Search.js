@@ -1,20 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { MdSearch } from "react-icons/md";
 import { GithubContext } from "../context/context";
 const Search = () => {
+  const { requests_limit, error, fetchGithubUser, loading } =
+    useContext(GithubContext);
   const [user, setUser] = useState("");
 
   const submitHandler = (event) => {
     event.preventDefault();
     if (user) {
-      console.log(user);
+      fetchGithubUser(user);
     }
   };
 
   return (
     <section className="section">
       <Wrapper className="section-center">
+        {error.show && (
+          <ErrorWrapper>
+            <p>{error.msg}</p>
+          </ErrorWrapper>
+        )}
         <form onSubmit={submitHandler}>
           <div className="form-control">
             <MdSearch />
@@ -24,10 +31,14 @@ const Search = () => {
               value={user}
               onChange={(event) => setUser(event.target.value)}
             />
-            <button type="submit">search</button>
+            {requests_limit.remaining > 0 && !loading && (
+              <button type="submit">search</button>
+            )}
           </div>
         </form>
-        <h3>request : 60/60</h3>
+        <h3>
+          request : {requests_limit.remaining || 0}/{requests_limit.limit || 0}
+        </h3>
       </Wrapper>
     </section>
   );
