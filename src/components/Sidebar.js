@@ -9,13 +9,16 @@ import CartButtons from "./CartButtons";
 import { useUserContext } from "../context/user_context";
 
 const Sidebar = () => {
-  const showSidebar = true;
+  const {
+    state: { showSidebar },
+    hideSidebar,
+  } = useProductsContext();
   return (
     <SidebarContainer>
       <aside className={showSidebar ? "sidebar show-sidebar" : "sidebar"}>
         <div className="sidebar-header">
           <img src={logo} alt="logo" className="logo" />
-          <button type="button" className="close-btn">
+          <button onClick={hideSidebar} type="button" className="close-btn">
             <FaTimes />
           </button>
         </div>
@@ -24,7 +27,9 @@ const Sidebar = () => {
             const { id, text, url } = item;
             return (
               <li key={id}>
-                <Link to={url}>{text}</Link>
+                <Link onClick={hideSidebar} to={url}>
+                  {text}
+                </Link>
               </li>
             );
           })}
