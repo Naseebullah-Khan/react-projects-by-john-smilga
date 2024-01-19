@@ -76,7 +76,7 @@ const SingleProductPage = () => {
               {company}
             </p>
             <hr />
-            {stock > 0 && <AddToCart />}
+            {stock > 0 && <AddToCart singleProduct={singleProduct} />}
           </div>
         </div>
       </div>
