@@ -2,11 +2,25 @@ import React from "react";
 import styled from "styled-components";
 import { BsStarFill, BsStarHalf, BsStar } from "react-icons/bs";
 const Stars = ({ data: { stars, reviews } }) => {
+  const tempStars = Array.from({ length: 5 }, (_, index) => {
+    const num = index + 0.5;
+    return (
+      <span key={index}>
+        {stars >= index + 1 ? (
+          <BsStarFill />
+        ) : stars > num ? (
+          <BsStarHalf />
+        ) : (
+          <BsStar />
+        )}
+      </span>
+    );
+  });
   return (
     <Wrapper>
       <div>
         {/* Stars (manual approach)  */}
-        <span>
+        {/* <span>
           {stars >= 1 ? (
             <BsStarFill />
           ) : stars > 0.5 ? (
@@ -50,8 +64,11 @@ const Stars = ({ data: { stars, reviews } }) => {
           ) : (
             <BsStar />
           )}
-        </span>
+        </span> */}
         {/* end of Stars (manual approach) */}
+        {/* Stars (array approach) */}
+        {tempStars}
+        {/* end of Stars (array approach) */}
       </div>
       <p>({reviews} customer reviews)</p>
     </Wrapper>
