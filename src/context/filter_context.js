@@ -29,8 +29,16 @@ export const FilterProvider = ({ children }) => {
   useEffect(() => {
     dispatch({ type: LOAD_PRODUCTS, payload: products });
   }, [products]);
+
+  const displayGridView = () => {
+    dispatch({ type: SET_GRIDVIEW });
+  };
+  const displayListView = () => {
+    dispatch({ type: SET_LISTVIEW });
+  };
+
   return (
-    <FilterContext.Provider value={{ state }}>
+    <FilterContext.Provider value={{ state, displayGridView, displayListView }}>
       {children}
     </FilterContext.Provider>
   );

@@ -5,21 +5,31 @@ import styled from "styled-components";
 const Sort = () => {
   const {
     state: { filteredProducts, gridView },
+    displayListView,
+    displayGridView,
   } = useFilterContext();
   return (
     <Wrapper>
       <div className="btn-container">
-        <button type="button" className={gridView && "active"}>
+        <button
+          type="button"
+          onClick={displayGridView}
+          className={gridView ? "active" : undefined}
+        >
           <BsFillGridFill />
         </button>
-        <button type="button" className={!gridView && "active"}>
+        <button
+          type="button"
+          onClick={displayListView}
+          className={!gridView ? "active" : undefined}
+        >
           <BsList />
         </button>
       </div>
       <p>{filteredProducts.length} Products Found</p>
       <hr />
       <form>
-        <label htmlFor="sort">Sort By</label>
+        <label htmlFor="sort">Sort By </label>
         <select name="sort" id="sort" className="sort-input">
           <option value="priceLowest">Price (Lowest)</option>
           <option value="priceHighest">Price (Highest)</option>
