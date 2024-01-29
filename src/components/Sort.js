@@ -4,9 +4,10 @@ import { BsFillGridFill, BsList } from "react-icons/bs";
 import styled from "styled-components";
 const Sort = () => {
   const {
-    state: { filteredProducts, gridView },
+    state: { filteredProducts, gridView, sort },
     displayListView,
     displayGridView,
+    changeSortOption,
   } = useFilterContext();
   return (
     <Wrapper>
@@ -30,7 +31,13 @@ const Sort = () => {
       <hr />
       <form>
         <label htmlFor="sort">Sort By </label>
-        <select name="sort" id="sort" className="sort-input">
+        <select
+          value={sort}
+          onChange={changeSortOption}
+          name="sort"
+          id="sort"
+          className="sort-input"
+        >
           <option value="priceLowest">Price (Lowest)</option>
           <option value="priceHighest">Price (Highest)</option>
           <option value="nameAtoZ">Name (A-Z)</option>
