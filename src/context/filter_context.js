@@ -29,7 +29,11 @@ export const FilterProvider = ({ children }) => {
 
   useEffect(() => {
     dispatch({ type: LOAD_PRODUCTS, payload: products });
-  }, [products, state.sortOption]);
+  }, [products, state.sort]);
+
+  useEffect(() => {
+    dispatch({ type: SORT_PRODUCTS });
+  }, [products, state.sort]);
 
   const displayGridView = () => {
     dispatch({ type: SET_GRIDVIEW });
