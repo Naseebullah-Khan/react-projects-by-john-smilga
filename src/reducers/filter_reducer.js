@@ -11,10 +11,15 @@ import {
 
 const filter_reducer = (state, action) => {
   if (action.type === LOAD_PRODUCTS) {
+    const maxPrice = Math.max(
+      ...action.payload.map((product) => product.price)
+    );
+
     return {
       ...state,
       allProducts: [...action.payload],
       filteredProducts: [...action.payload],
+      filters: { ...state.filters, maxPrice, price: maxPrice },
     };
   }
 
