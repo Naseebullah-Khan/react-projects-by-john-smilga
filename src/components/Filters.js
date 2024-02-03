@@ -22,6 +22,7 @@ const Filters = () => {
     <Wrapper>
       <div className="content">
         <form onSubmit={(event) => event.preventDefault()}>
+          {/* search */}
           <div className="form-control">
             <input
               type="text"
@@ -32,6 +33,7 @@ const Filters = () => {
               onChange={changeFilters}
             />
           </div>
+          {/* categories */}
           <div className="form-control">
             <h5>category</h5>
             <div>
@@ -51,6 +53,24 @@ const Filters = () => {
                 );
               })}
             </div>
+          </div>
+          {/* companies */}
+          <div className="form-control">
+            <h5>company</h5>
+            <select
+              name="company"
+              className="company"
+              value={company}
+              onChange={changeFilters}
+            >
+              {companies.map((c, index) => {
+                return (
+                  <option key={index} value={c}>
+                    {c}
+                  </option>
+                );
+              })}
+            </select>
           </div>
         </form>
       </div>
