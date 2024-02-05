@@ -8,7 +8,16 @@ const Filters = () => {
   const {
     state: {
       allProducts,
-      filters: { text, company, category, maxPrice, minPrice, price, shipping },
+      filters: {
+        text,
+        company,
+        category,
+        color,
+        maxPrice,
+        minPrice,
+        price,
+        shipping,
+      },
     },
     changeFilters,
     clearFilters,
@@ -71,6 +80,45 @@ const Filters = () => {
                 );
               })}
             </select>
+          </div>
+          {/* colors */}
+          <div className="form-control">
+            <h5>colors</h5>
+            <div className="colors">
+              {colors.map((c, index) => {
+                if (c === "all") {
+                  return (
+                    <button
+                      key={index}
+                      name="color"
+                      type="button"
+                      className={`${
+                        color === "all" ? "all-btn active" : "all-btn"
+                      }`}
+                      data-color="all"
+                      onClick={changeFilters}
+                    >
+                      all
+                    </button>
+                  );
+                }
+                return (
+                  <button
+                    key={index}
+                    name="color"
+                    type="button"
+                    style={{ background: c }}
+                    className={`${
+                      color === c ? "color-btn active" : "color-btn"
+                    }`}
+                    data-color={c}
+                    onClick={changeFilters}
+                  >
+                    {color === c ? <FaCheck /> : null}
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </form>
       </div>
