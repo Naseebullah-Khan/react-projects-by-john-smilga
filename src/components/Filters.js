@@ -133,6 +133,17 @@ const Filters = () => {
               onChange={changeFilters}
             />
           </div>
+          {/* free shipping */}
+          <div className="form-control shipping">
+            <label htmlFor="shipping">free shipping</label>
+            <input
+              type="checkbox"
+              name="shipping"
+              id="shipping"
+              onChange={changeFilters}
+              checked={shipping}
+            />
+          </div>
         </form>
       </div>
     </Wrapper>
