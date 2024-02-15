@@ -4,16 +4,30 @@ import { formatPrice } from "../utils/helpers";
 import AmountButtons from "./AmountButtons";
 import { FaTrash } from "react-icons/fa";
 import { useCartContext } from "../context/cart_context";
-const CartItem = ({ id, name, price, image, color, amount }) => {
+const CartItem = ({ id, name, price, image, color, amount, max }) => {
   const {
     state: { totalItems },
     removeItem,
     toggleAmount,
   } = useCartContext();
 
-  const increase = () => {};
+  const increase = () => {
+    //   let tempAmount = amount + 1;
+    //   if (tempAmount > max) {
+    //     tempAmount = max;
+    //   }
+    //   toggleAmount(id, tempAmount);
+    toggleAmount(id, "increase");
+  };
 
-  const decrease = () => {};
+  const decrease = () => {
+    // let tempAmount = amount - 1;
+    // if (tempAmount < 1) {
+    //   tempAmount = 1;
+    // }
+    // toggleAmount(id, tempAmount);
+    toggleAmount(id, "decrease");
+  };
 
   return (
     <Wrapper>
