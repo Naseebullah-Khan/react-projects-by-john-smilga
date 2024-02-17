@@ -2,6 +2,7 @@
 
 This repository contains react projects<br/>
 These projects belong to John Smilga's React course<br/>
+in every branch there is a project
 
 # Getting Started with Create React App
 
