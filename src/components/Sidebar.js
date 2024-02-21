@@ -13,6 +13,8 @@ const Sidebar = () => {
     state: { showSidebar },
     hideSidebar,
   } = useProductsContext();
+  const { myUser } = useUserContext();
+
   return (
     <SidebarContainer>
       <aside className={showSidebar ? "sidebar show-sidebar" : "sidebar"}>
@@ -33,6 +35,13 @@ const Sidebar = () => {
               </li>
             );
           })}
+          {myUser && (
+            <li>
+              <Link to="/checkout" onClick={hideSidebar}>
+                checkout
+              </Link>
+            </li>
+          )}
         </ul>
         <CartButtons />
       </aside>
