@@ -68,11 +68,48 @@ const CheckoutForm = () => {
     createPaymentIntent();
   }, []);
 
-  const changeHandler = async (event) => {};
-  const submitHandler = async (ev) => {};
+  const changeHandler = async (event) => {
+    setDisabled(event.empty);
+    setError(event.error ? event.error.message : "");
+  };
+
+  const submitHandler = async (ev) => {
+    ev.preventDefault();
+    setProcessing(true);
+    const payload = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: elements.getElement(CardElement),
+      },
+    });
+    if (payload.error) {
+      setError(`Payment failed ${payload.error.message}`);
+      setProcessing(false);
+    } else {
+      setError(null);
+      setProcessing(false);
+      setSucceeded(true);
+      setTimeout(() => {
+        clearCart();
+        navigate("/");
+      }, 5000);
+    }
+  };
 
   return (
     <div>
+      {succeeded ? (
+        <article>
+          <h4>Thank You</h4>
+          <h4>Your payment was successful!</h4>
+          <h4>Redirecting to homepage shortly...</h4>
+        </article>
+      ) : (
+        <article>
+          <h4>Hello, {myUser && myUser.name}</h4>
+          <p>Your total is {formatPrice(shipping + totalAmount)}</p>
+          <p>Test Card Number: 4242 4242 4242 4242</p>
+        </article>
+      )}
       <form id="payment-form" onSubmit={submitHandler}>
         <CardElement
           id="card-element"
@@ -80,7 +117,7 @@ const CheckoutForm = () => {
           onChange={changeHandler}
         />
         <button
-          type="button"
+          type="submit"
           disabled={processing || disabled || succeeded}
           id="submit"
         >
