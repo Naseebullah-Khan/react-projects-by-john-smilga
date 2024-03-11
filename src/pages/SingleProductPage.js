@@ -24,7 +24,7 @@ const SingleProductPage = () => {
 
   useEffect(() => {
     fetchSingleProduct(`${url}${id}`);
-  }, [id]);
+  }, [id, fetchSingleProduct]);
 
   useEffect(() => {
     if (singleProductError) {
@@ -32,7 +32,7 @@ const SingleProductPage = () => {
         navigate("/");
       }, 4000);
     }
-  }, [singleProductError]);
+  }, [singleProductError, navigate]);
 
   if (singleProductLoading) return <Loading />;
 

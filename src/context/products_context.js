@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useEffect, useReducer } from "react";
+import React, { useCallback, useContext, useEffect, useReducer } from "react";
 import reducer from "../reducers/products_reducer";
 import { products_url as url } from "../utils/constants";
 import {
@@ -39,7 +39,7 @@ export const ProductsProvider = ({ children }) => {
     }
   };
 
-  const fetchSingleProduct = async (url) => {
+  const fetchSingleProduct = useCallback(async (url) => {
     dispatch({ type: GET_SINGLE_PRODUCT_BEGIN });
     try {
       const { data: singleProduct } = await axios(url);
@@ -47,7 +47,7 @@ export const ProductsProvider = ({ children }) => {
     } catch (error) {
       dispatch({ type: GET_SINGLE_PRODUCT_ERROR });
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchProducts(url);

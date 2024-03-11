@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { loadStripe } from "@stripe/stripe-js";
 import {
@@ -50,7 +50,7 @@ const CheckoutForm = () => {
     },
   };
 
-  const createPaymentIntent = async () => {
+  const createPaymentIntent = useCallback(async () => {
     try {
       const {
         data: { clientSecret: secret },
@@ -62,11 +62,11 @@ const CheckoutForm = () => {
     } catch (error) {
       // console.log(error.response);
     }
-  };
+  }, [cart, totalAmount, shipping]);
 
   useEffect(() => {
     createPaymentIntent();
-  }, []);
+  }, [createPaymentIntent]);
 
   const changeHandler = async (event) => {
     setDisabled(event.empty);
