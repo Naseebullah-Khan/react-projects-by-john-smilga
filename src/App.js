@@ -1,44 +1,4 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Navbar, Sidebar, Footer } from "./components";
-import {
-  Home,
-  About,
-  Cart,
-  Checkout,
-  PrivateRoute,
-  Products,
-  SingleProduct,
-  Error,
-  AuthWrapper,
-} from "./pages";
-
 function App() {
-  return (
-    <AuthWrapper>
-      <Router>
-        <Navbar />
-        <Sidebar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route
-            path="/checkout"
-            element={
-              <PrivateRoute>
-                <Checkout />
-              </PrivateRoute>
-            }
-          />
-          <Route path="/products" element={<Products />} />
-          <Route path="/products/:id" element={<SingleProduct />} />
-          <Route path="*" element={<Error />} />
-        </Routes>
-        <Footer />
-      </Router>
-    </AuthWrapper>
-  );
+  return <h2>Redux Toolkit</h2>;
 }
-
 export default App;
