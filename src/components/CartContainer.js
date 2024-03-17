@@ -6,7 +6,7 @@ const CartContainer = () => {
   const { cartItems, total, amount } = useSelector((state) => state.cart);
   return (
     <section className="cart">
-      {amount < 1 ? (
+      {amount > 1 ? (
         <header>
           <h2>your bag</h2>
           <h4 className="empty-cart">is currently empty</h4>
