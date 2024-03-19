@@ -20,10 +20,23 @@ const cartSlice = createSlice({
       const tempCartItems = state.cartItems.filter((item) => item.id !== id);
       state.cartItems = tempCartItems;
     },
+    toggleAmount: (state, { payload: { id, type } }) => {
+      state.cartItems = state.cartItems.filter((item) => {
+        if (item.id === id) {
+          if (type === "inc") {
+            item.amount += 1;
+          }
+          if (type === "dec") {
+            item.amount -= 1;
+          }
+        }
+        return item;
+      });
+    },
   },
 });
 
 // console.log(cartSlice);
-export const { clearCart, removeItem } = cartSlice.actions;
+export const { clearCart, removeItem, toggleAmount } = cartSlice.actions;
 
 export default cartSlice.reducer;
