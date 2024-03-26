@@ -6,6 +6,8 @@ import Navbar from "./components/Navbar";
 import CartContainer from "./components/CartContainer";
 import Modal from "./components/Modal";
 
+const url = "https://course-api.com/react-useReducer-cart-project";
+
 function App() {
   const { cartItems, isLoading } = useSelector((state) => state.cart);
   const { isModalOpen } = useSelector((state) => state.modal);
@@ -16,7 +18,7 @@ function App() {
   }, [cartItems]);
 
   useEffect(() => {
-    dispatch(getCartItems());
+    dispatch(getCartItems(url));
   }, []);
 
   if (isLoading) {
