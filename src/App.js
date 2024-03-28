@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { calculateTotals, getCartItems } from "./features/cart/cartSlice";
 
@@ -13,13 +13,21 @@ function App() {
   const { isModalOpen } = useSelector((state) => state.modal);
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  const calculateTotalsUseCallback = useCallback(() => {
     dispatch(calculateTotals());
-  }, [cartItems]);
+  }, [dispatch]);
 
   useEffect(() => {
+    calculateTotalsUseCallback();
+  }, [calculateTotalsUseCallback, cartItems]);
+
+  const getCartItemsUseCallback = useCallback(() => {
     dispatch(getCartItems(url));
-  }, []);
+  }, [dispatch]);
+
+  useEffect(() => {
+    getCartItemsUseCallback();
+  }, [getCartItemsUseCallback]);
 
   if (isLoading) {
     return (
